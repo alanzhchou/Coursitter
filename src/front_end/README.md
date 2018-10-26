@@ -1,1 +1,2 @@
 ## put frontend source code here 
+![npm](https://img.shields.io/badge/npm-v6.4.1-green.svg)![vue](https://img.shields.io/badge/vue-v2.5.0-yellow.svg)![vue-cli](https://img.shields.io/badge/vue_Cli-v3.0.5-green.svg)![license](https://img.shields.io/badge/license-MIT-blue.svg)
