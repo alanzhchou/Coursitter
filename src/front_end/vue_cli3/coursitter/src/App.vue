@@ -1,17 +1,20 @@
 <template>
   <div id="app">
     <!-- <img alt="Vue logo" src=".\assets\New Mockup 1.png"> -->
-    <navTop v-bind:msg="1234"></navTop>
+    <myNavbar v-bind:msg="1234"></myNavbar>
+    <indexBody>asd</indexBody>
   </div>
 </template>
 
 <script>
-import NavTop from './components/nav.vue'
+import MyNavbar from './components/myNavbay.vue'
+import IndexBody from './components/indexBody.vue'
 
 export default {
   name: 'app',
   components: {
-    "navTop":NavTop,
+    "myNavbar":MyNavbar,
+    "indexBody":IndexBody,
   }
 }
 </script>
