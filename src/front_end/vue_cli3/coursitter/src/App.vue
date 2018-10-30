@@ -11,6 +11,15 @@
 			<li class="breadcrumb-item">
 				<router-link to="/signup">Sign Up</router-link>
 			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/account/bsetting"> account basic_setting </router-link>
+			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/account/psetting"> account password_setting </router-link>
+			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/account/courses"> account courses </router-link>
+			</li>
 		</ul>
 		<router-view></router-view>
 	</div>

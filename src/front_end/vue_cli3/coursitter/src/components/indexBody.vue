@@ -18,7 +18,7 @@ export default {
     name: 'IndexBody',
     data(){
         return {
-            news_img: "imgs/sustc.jpg",
+            news_img: "/imgs/sustc.jpg",
             slides:[],
             inner_items:[]
         };
@@ -31,7 +31,7 @@ export default {
                 for(let i=0; i<data.body.length; i++){
                     this.slides.push(i);
                     this.inner_items.push({   
-                                    img_src: "imgs/" + String(i) + ".jpg", 
+                                    img_src: "/imgs/" + String(i) + ".jpg", 
                                     title: data.body[i].name, 
                                     discribe: data.body[i].email
                                 });

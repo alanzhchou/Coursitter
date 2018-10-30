@@ -52,7 +52,7 @@ export default {
 	name: 'MyNavbar',
 	data(){
 		return {
-			nav_brand_src: "imgs/CSI-png2.png",
+			nav_brand_src: "/imgs/CSI-png2.png",
 			main_name: "Coursitter",
 			service_types: ["院系","专业","课程","课程选修测试"],
 			default_search_type: "选择",
