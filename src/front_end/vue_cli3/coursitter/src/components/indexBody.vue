@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid bg-light">
         <div class="row">
             <div class="col-xs-8 offset-xs-2 col-sm-8 offset-sm-2 col-md-8 offset-md-2 col-lg-8 offset-lg-2">
                 <img :src="news_img" alt="" id="news_img" class="rounded-circle">

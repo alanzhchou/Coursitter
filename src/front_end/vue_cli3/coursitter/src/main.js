@@ -7,6 +7,9 @@ import IndexBody from './components/indexBody.vue';
 import Sign from './components/sign.vue';
 import Setting from './components/setting.vue';
 import CoursesView from './components/coursesView.vue';
+import FacultiesView from './components/facultiesView.vue';
+import MajorsView from './components/majorsView.vue';
+import MajorCoursesView from './components/majorCoursesView.vue'
 
 Vue.use(VueResource);
 Vue.use(VueRouter);
@@ -55,6 +58,96 @@ const router = new VueRouter({
 				path:"/account/courses",
 				component:CoursesView,
 			},
+			{
+				path:"/faculties",
+				component:FacultiesView,
+			},
+			{
+				path:"/majors",
+				component:MajorsView,
+				props:{
+					majors:[
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/201.jpg",
+							major_name: "数学",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/202.jpg",
+							major_name: "物理",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/203.jpg",
+							major_name: "化学",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/204.jpg",
+							major_name: "生物",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/205.jpg",
+							major_name: "电子电气",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/205.jpg",
+							major_name: "电子电气",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/205.jpg",
+							major_name: "电子电气",
+							major_discribe: "xxxxx",
+						},
+					]
+				}
+			},
+			{
+				path:"/faculty/:id",
+				component:MajorsView,
+				props:{
+					majors:[
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/201.jpg",
+							major_name: "数学",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/202.jpg",
+							major_name: "物理",
+							major_discribe: "xxxxx",
+						},
+						{   
+							major_id: 0,
+							major_img_src: "/imgs/203.jpg",
+							major_name: "化学",
+							major_discribe: "xxxxx",
+						},
+					]
+				}	
+			},
+			{
+				path:"/major/:id",
+				component:MajorCoursesView,
+				props:{
+					courses:[
+
+					],
+				}	
+			},
+
 		],
 	mode: "history",
 });

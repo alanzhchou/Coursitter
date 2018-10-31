@@ -20,6 +20,18 @@
 			<li class="breadcrumb-item">
 				<router-link to="/account/courses"> account courses </router-link>
 			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/faculties"> all_faculties </router-link>
+			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/majors"> all_majors </router-link>
+			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/faculty/0"> single_faculty_majors </router-link>
+			</li>
+			<li class="breadcrumb-item">
+				<router-link to="/major/0"> single_major_all_courses </router-link>
+			</li>
 		</ul>
 		<router-view></router-view>
 	</div>

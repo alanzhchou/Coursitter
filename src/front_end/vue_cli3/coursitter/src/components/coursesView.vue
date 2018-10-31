@@ -20,7 +20,7 @@
                         </tr>  
                     </thead>
                     <tbody>
-                        <tr v-for="item in courses" :class="{'bg-info':item.highlight} "> 
+                        <tr v-for="item in courses" :class="{'bg-info':item.highlight}"> 
                             <td> {{ item.course_id}} </td> 
                             <td> {{ item.course_name }} </td> 
                             <td> {{ item.course_code }} </td> 
@@ -96,7 +96,7 @@ export default {
                 event.target.innerText = this.info[0];
             }
         },
-        changeHighLightMajor(event){
+        changeHighLightMajor(){
             this.highlight_flag = !this.highlight_flag;
             if(this.highlight_flag){
                 for(let i=0; i<this.courses.length; i++){

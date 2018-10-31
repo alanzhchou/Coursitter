@@ -15,7 +15,7 @@
 			<div class="collapse navbar-collapse" id="navbarMain">
 				<ul class="navbar-nav mr-auto ">
 					<li class="nav-item" v-for="item in service_types">
-						<a class="nav-link" href="#">{{ item }}</a>
+						<router-link class="nav-link" :to="item.link">{{ item.type }}</router-link>
 					</li>
 				</ul>
         
@@ -54,7 +54,24 @@ export default {
 		return {
 			nav_brand_src: "/imgs/CSI-png2.png",
 			main_name: "Coursitter",
-			service_types: ["院系","专业","课程","课程选修测试"],
+			service_types: [
+				{
+					type:"院系",
+					link:"/faculties",
+				},
+				{
+					type:"专业",
+					link:"/majors",
+				},
+				{
+					type:"课程",
+					link:"/",
+				},
+				{
+					type:"课程选修测试",
+					link:"/",
+				},
+			],
 			default_search_type: "选择",
 			search_types: [
 				{type:"院系"},
