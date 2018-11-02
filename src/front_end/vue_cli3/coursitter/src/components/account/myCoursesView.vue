@@ -2,14 +2,14 @@
     <div class="container-fluid bg-light">
         <!-- title -->
         <div class="row title">
-            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                - courses view
+            <div class="col-xs-2 offset-xs-1 col-sm-2 offset-sm-1 col-md-2 offset-md-1 col-lg-2 offset-lg-1">
+                <button class="btn btn-outline-danger"> learned courses view </button>
             </div>
         </div>
 
         <div class="row body bg-light" >
             <div class="col-xs-9 offset-xs-1 col-sm-9 offset-sm-1 col-md-9 offset-md-1 col-lg-9 offset-lg-1">
-                <table class="table table-hover">
+                <table class="table table-hover table-responsive-sm">
                     <thead>
                         <tr> 
                             <th> <button class="btn btn-info"> 课程序号 </button> </th> 
@@ -32,7 +32,11 @@
                 <button class="btn btn-danger"> 更多 </button>
             </div>
             <div class="col-xs-2 col-sm-9 col-md-2 col-lg-2">
-                <button class="btn btn-warning" @click="changeHighLightMajor"> 高亮我的专业课 </button>
+                <button :class="{'btn btn-success': true, 'btn-dark':highlight_flag}" @click="changeHighLightMajor"> 高亮我的专业课 </button>
+                <!-- <div class="switch">
+                    <input type="checkbox" id="switch"/>    
+                    <label for="switch"><em></em></label>
+                </div> -->
             </div>
         </div>
     </div>
@@ -41,50 +45,15 @@
 <script>
 
 export default {
-    name:"CoursesView",
+    name:"MyCoursesView",
+    props:{
+        courses: Array,
+    },
     data(){
         return {
             course_score_seen: false,
             highlight_flag: false,
             info:["课程分数(显示)","课程分数(关闭)"],
-            courses:[
-                {   
-                    course_id: 1,
-                    course_name: "Computer Network",
-                    course_code: "CS203",
-                    course_score: "A",
-                    course_study_year: "大二 下",
-                    course_my_major: false, 
-                    highlight: false,
-                },
-                {
-                    course_id: 2,
-                    course_name: "Computer Network",
-                    course_code: "CS203",
-                    course_score: "A",
-                    course_study_year: "大二 下",
-                    course_my_major: true, 
-                    highlight: false,
-                },
-                {
-                    course_id: 3,
-                    course_name: "Computer Network",
-                    course_code: "CS203",
-                    course_score: "A",
-                    course_study_year: "大二 下",
-                    course_my_major: false, 
-                    highlight: false,
-                },
-                {
-                    course_id: 4,
-                    course_name: "Computer Network",
-                    course_code: "CS203",
-                    course_score: "A",
-                    course_study_year: "大二 下",
-                    course_my_major: true,  
-                    highlight: false,
-                },
-            ]
         };
     },
     methods:{
@@ -115,10 +84,17 @@ export default {
 </script>
 
 <style scoped lang="less">
+.title{
+    button{
+        box-shadow: 2px 2px 5px;
+        transition: all 1s;
+    }
+    button:hover{
+        transform: scale(1.1);
+        border: 2px outset gray;
+    }
+}
 .body{
     margin-top: 20px;
-}
-.list{
-    margin-top: 10px;
 }
 </style>

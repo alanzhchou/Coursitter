@@ -1,10 +1,10 @@
 <template>
 	<div class="container-fluid">
 		<nav class="navbar navbar-expand-lg bg-light navbar-light">
-			<a class="navbar-brand" href="#">
+			<router-link class="navbar-brand" to="/">
 				<img :src="nav_brand_src" alt="Logo"> 
 				<span class="navbar-text">{{ main_name }}</span> 
-			</a>
+			</router-link>
 		
 			<!-- 小设备上的折叠下拉按钮 -->
 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarMain">
@@ -39,7 +39,7 @@
 						Sign In / Sign Up
 					</button>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" v-for="item in sign_info" :href="item.link">{{ item.info }}</a>
+						<router-link class="dropdown-item" v-for="item in sign_info" :to="item.link">{{ item.info }}</router-link>
 					</div>
 				</div>
       		</div>
@@ -64,12 +64,8 @@ export default {
 					link:"/majors",
 				},
 				{
-					type:"课程",
-					link:"/",
-				},
-				{
-					type:"课程选修测试",
-					link:"/",
+					type:"单例课程信息请求",
+					link:"/courserequest",
 				},
 			],
 			default_search_type: "选择",

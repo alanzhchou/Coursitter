@@ -18,6 +18,11 @@
                                 <span class="input-group-text"> 院系 </span>
                             </div>
                             <input type="text" class="form-control" placeholder="院系名称" v-model="item.faculty_name" readonly>
+                            <div class="input-group-append"> 
+                                <router-link :to="'/faculty/' + item.faculty_id + '/courses'">
+                                    <span class="input-group-text bg-info"> 开课 </span>
+                                </router-link>
+                            </div>
                         </div>
                         <textarea rows="4" v-model="item.faculty_discribe" readonly></textarea>
                     </div>
@@ -30,41 +35,8 @@
 <script>
 export default {
     name: 'FacultiesView',
-    data(){
-        return {
-            faculties:[
-                {   
-                    faculty_id: 0,
-                    faculty_img_src: "/imgs/201.jpg",
-                    faculty_name: "数学",
-                    faculty_discribe: "xxxxx",
-                },
-                {   
-                    faculty_id: 0,
-                    faculty_img_src: "/imgs/202.jpg",
-                    faculty_name: "物理",
-                    faculty_discribe: "xxxxx",
-                },
-                {   
-                    faculty_id: 0,
-                    faculty_img_src: "/imgs/203.jpg",
-                    faculty_name: "化学",
-                    faculty_discribe: "xxxxx",
-                },
-                {   
-                    faculty_id: 0,
-                    faculty_img_src: "/imgs/204.jpg",
-                    faculty_name: "生物",
-                    faculty_discribe: "xxxxx",
-                },
-                {   
-                    faculty_id: 0,
-                    faculty_img_src: "/imgs/205.jpg",
-                    faculty_name: "电子电气",
-                    faculty_discribe: "xxxxx",
-                },
-            ]
-        }
+    props:{
+        faculties: Array,
     }
 }
 </script>

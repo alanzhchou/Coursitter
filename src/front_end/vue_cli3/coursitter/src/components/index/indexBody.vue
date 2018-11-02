@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import Carousel from './carousel.vue';
+import Carousel from './indexBody_items/carousel.vue';
 
 export default {
     name: 'IndexBody',

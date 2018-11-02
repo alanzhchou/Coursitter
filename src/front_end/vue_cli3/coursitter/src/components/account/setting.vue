@@ -19,10 +19,10 @@
 </template>
 
 <script>
-import SettingLeft from './settingLeft.vue';
-import SettingRightBasic from './settingRightBasic.vue';
-import SettingRightPassword from './settingRightPassword.vue';
-import SettingMid from './settingMid.vue';
+import SettingLeft from './setting_items/settingLeft.vue';
+import SettingRightBasic from './setting_items/settingRightBasic.vue';
+import SettingRightPassword from './setting_items/settingRightPassword.vue';
+import SettingMid from './setting_items/settingMid.vue';
 
 export default {
     name:"Setting",

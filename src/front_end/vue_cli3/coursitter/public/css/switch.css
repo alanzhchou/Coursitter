@@ -1,0 +1,60 @@
+@charset "utf-8";
+/* @media screen and (max-width: 300px) {
+    body {
+        background-color:lightblue;
+    }
+} */
+/* .switch input {
+    display: none
+}
+.switch label{
+    width: 52px;
+    background: #CCC;
+    height: 28px;
+    border-radius: 14px;
+    margin: 8px 10px 0 0;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+}
+.switch label em {
+    width: 26px;
+    height: 26px;
+    float: left;
+    margin: 1px;
+    border-radius: 50%;
+    box-shadow: 2px 3px 8px rgba(0,0,0,.1);
+    background: #FFF;
+}
+.switch input:checked + label {
+    background: #a4d714;
+}
+.switch input:checked + label em {
+    float: right;
+} */
+
+.switch input {
+    display: none
+}
+.switch label{
+    width: 52px;
+    height: 28px;
+    background: #dc3545;
+    border-radius: 14px;
+    box-shadow: 0 1px 2px rgba(0,0,0,.1) inset;
+}
+.switch label em {
+    width: 26px;
+    height: 26px;
+    margin: 1px;
+    border-radius: 50%;
+    box-shadow: 2px 3px 8px rgba(0,0,0,.1);
+    display: block;
+    background: #fff;
+    transition: all 0.3s;
+}
+.switch input:checked + label {
+    background: #a4d714;
+}
+.switch input:checked + label em {
+    margin: 1px;
+    margin-left: 24px;
+}

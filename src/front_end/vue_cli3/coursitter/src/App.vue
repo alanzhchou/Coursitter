@@ -2,35 +2,8 @@
 	<div id="app">
 		<myNavbar></myNavbar>
 		<ul class="breadcrumb">
-			<li class="breadcrumb-item">
-				<router-link to="/">Home</router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/signin">Sign In</router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/signup">Sign Up</router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/account/bsetting"> account basic_setting </router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/account/psetting"> account password_setting </router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/account/courses"> account courses </router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/faculties"> all_faculties </router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/majors"> all_majors </router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/faculty/0"> single_faculty_majors </router-link>
-			</li>
-			<li class="breadcrumb-item">
-				<router-link to="/major/0"> single_major_all_courses </router-link>
+			<li v-for="item in router_links" class="breadcrumb-item" >
+				<router-link :to="item.link_to"> {{ item.infomation }} </router-link>
 			</li>
 		</ul>
 		<router-view></router-view>
@@ -39,13 +12,31 @@
 
 <script>
 import MyNavbar from './components/myNavbar.vue'
-import IndexBody from './components/indexBody.vue'
 
 export default {
     name: 'app',
+	data(){
+		return {
+			router_links:[
+				{link_to: "/" ,	infomation: "Home",},
+				{link_to: "/signin",infomation: "Sign In",},
+				{link_to: "/signup",infomation: "Sign Up",},
+				{link_to: "/account/bsetting",infomation: "account basic_setting",},
+				{link_to: "/account/psetting",infomation: "account password_setting",},	
+				{link_to: "/account/courses",infomation: "account courses",},
+				{link_to: "/faculties",infomation: "all_faculties",},
+				{link_to: "/majors",infomation: "all_majors",},
+				{link_to: "/faculty/0",infomation: "single_faculty_majors",},
+				{link_to: "/faculty/0/courses",infomation: "single_faculty_all_courses",},
+				{link_to: "/major/0",infomation: "single_major_all_courses",},
+				{link_to: "/courserequest",infomation: "single course request",},
+				{link_to: "/help",infomation: "help page",},
+				{link_to: "/404",infomation: "404 Not Found",},
+			]
+		};
+	},
     components: {
         "myNavbar":MyNavbar,
-        "indexBody":IndexBody,
     }
 }
 </script>

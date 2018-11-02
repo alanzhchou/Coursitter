@@ -10,9 +10,11 @@
             <div class="col-xs-10 offset-xs-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
                 <div class="row main">
                     <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" v-for="item in majors">
-                        <img :src="item.major_img_src" :alt="item.major_name" class="img-thumbnail"/>
+                        <router-link :to="'/major/' + item.major_id">
+                            <img :src="item.major_img_src" :alt="item.major_name" class="img-thumbnail"/>
+                        </router-link>
                         <div class="input-group  mx-auto">
-                            <div class="input-group-prepend"> 
+                            <div class="input-group-prepend">
                                 <span class="input-group-text"> 专业 </span>
                             </div>
                             <input type="text" class="form-control" placeholder="院系名称" v-model="item.major_name" readonly>

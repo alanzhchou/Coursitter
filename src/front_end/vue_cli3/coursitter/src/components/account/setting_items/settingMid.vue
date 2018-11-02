@@ -6,8 +6,8 @@
                 {{ default_setting_type }}
                 </button>
                 <div class="dropdown-menu">
-                    <li v-for="item in setting_types" @click="change_setting_type" class="dropdown-item"> 
-                         <router-link :to="item.src"> {{ item.type }} </router-link>
+                    <li v-for="item in setting_types" class="dropdown-item"> 
+                         <router-link :to="item.src" @click="change_setting_type"> {{ item.type }} </router-link>
                     </li>
                 </div>
             </div>

@@ -1,20 +1,16 @@
 <template>
 	<div class="main">
-        <img :src="major_img_src" :alt="major" class="rounded img-thumbnail"/>
-        <textarea class="form-control" rows="5" readonly> {{ major_discribe }} </textarea>
+        <img :src="info['img_src']" :alt="info['title_name']" class="rounded img-thumbnail"/>
+        <textarea class="form-control" rows="5" readonly> {{ info['discribe'] }} </textarea>
 	</div>
 </template>
 
 <script>
 export default {
-    name: 'MajorCoursesViewLeft',
-    data(){
-        return {
-            major: "Math",
-            major_img_src: "/imgs/201.jpg",
-            major_discribe: "xxxxxxx",
-        };
-    },
+    name: 'CoursesViewLeft',
+    props:{
+        info: Object,
+    }
 }
 </script>
 

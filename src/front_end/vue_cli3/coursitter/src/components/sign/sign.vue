@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import SignInForm from './signInForm.vue';
-import SignUpForm from './signUpForm.vue';
+import SignInForm from './sign_items/signInForm.vue';
+import SignUpForm from './sign_items/signUpForm.vue';
 
 export default {
     name:"Sign",
