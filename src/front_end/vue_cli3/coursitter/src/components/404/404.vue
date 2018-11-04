@@ -27,9 +27,9 @@ export default {
             name: "周恒 11510629",
             img_style: "",
             img_rotate:[
-                "transform: rotate(-80deg)",
+                "transform: rotate(-55deg)",
                 "transform: rotate(180deg)",
-                "transform: rotate(80deg)",
+                "transform: rotate(55deg)",
             ],
         }
     },
