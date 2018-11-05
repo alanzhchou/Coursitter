@@ -18,3 +18,7 @@ lib
 *.eddx
 *.bmpr
 *.pdf
+*.zip
+data_source
+__pycache__
+*.rar
