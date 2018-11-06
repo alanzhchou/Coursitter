@@ -22,3 +22,6 @@ lib
 data_source
 __pycache__
 *.rar
+conf
+secret_test
+log

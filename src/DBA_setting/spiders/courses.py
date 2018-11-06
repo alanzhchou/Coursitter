@@ -2,94 +2,85 @@
 # -*- coding: utf-8 -*-
 
 # Author: Alan-11510 
-# Date: 2018/11/5
+# Date: 2018/11/6
 # version: 1.0
 # python_version: 3.62
 
-import requests
-from bs4 import BeautifulSoup
-import re
-import user_agent as ua
+import traceback
 
-class Coursitter(object):
-    def __init__(self,username,password):
-        self.url = "http://jwxt.sustc.edu.cn/jsxsd/xkgl/kcjjQuery"
-        self.headers = {
-                "Host": "jwxt.sustc.edu.cn",
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:63.0) Gecko/20100101 Firefox/63.0",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-                "Accept-Language": "zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2",
-                "Accept-Encoding": "gzip,deflate",
-                "Referer": "http://jwxt.sustc.edu.cn/jsxsd/xkgl/kcjjQuery",
-                "Content-Type": "application/x-www-form-urlencoded",
-                "Content-Length": "92",
-                "Connection": "keep-alive",
-                "Upgrade-Insecure-Requests": "1",
-            }
-        self.cookies = {
-                "Hm_lvt_6a98cecfe3e66904991232e6b5573cd9": "1540989010,1541067576,1541182979,1541322748",
-                "JSESSIONID": "28C68B423EFC47C4650F1EA3D0EE8253",
-                "pgv_pvi":"2020815872",
-                "UM_distinctid": "165f74846a2ed-07f0f597ecf20d-4c312878-144000-165f74846a3351",
-            }
-        self.data = {
-                "xnxq01id": ["2018-2019-1",""],
-                "xx0301id": "txj2Rt7H6F",
-                "kch": "",
-                "kcmc": "",
-                "jx02id": "",
-                "pageIndex": 1,
-            }
+import pymongo as mongo
 
-        self.basic_html_doc = None
-        self.coding = None
-        self.semesters = []
-        self.faculties = {}
+import logpy as lg
 
-        self.init_request()
+class Courses(object):
+    def __init__(self):
+        self.max_size = 500
+        self.courses = []
 
-    def find_cas_jsession(self,username,password):
-        pass
+        self.__mongo_client = mongo.MongoClient("mongodb://localhost:27017/")
+        lg.log("test connection: " + str(self.__mongo_client.server_info()))  # test connection
 
-    def init_request(self):
+        self.db = self.__mongo_client["coursitter"]
+        lg.log("test mongo db: " + str(self.db.list_collection_names()))  # test mongo db
+
+        self.collection = self.db["course"]
+        item = self.collection.find_one()
+        lg.log("test db collection: " + str(item))     # test db collection
+
+    def add_course(self,list):
+        course = {
+            "semester" : "",
+            "faculty" : "",
+            "code" : "",
+            "name" : "",
+            "credit" : "",
+            "hours" : "",
+            "type" : "",
+            "state" : "",
+            "shu_xing" : "",
+            "xing_zhi" : "",
+            "discription" : "",
+            "requirements" : [],
+        }
+
         try:
-            req = requests.post(url=self.url, headers=self.headers, cookies=self.cookies, data=self.data)
-            self.coding = req.apparent_encoding
-            req.encoding = self.coding
-            soup = BeautifulSoup(req.text, "lxml")
+            if len(list) == len(course):
+                index = 0
+                for item in course:
+                    course[item] = list[index]
+                    index += 1
+                self.courses.append(course)
 
-            # 找到所有可选学年学期
-            xnxq = soup.find("select", attrs={"id": "xnxq01id"})
-            xnxq_arr = []
-            for option in xnxq.find_all("option"):
-                xnxq_arr.append(option.text)
-            xnxq_arr.pop(0)
-            self.semesters = xnxq_arr
-
-            # 找到所有可选开课院系
-            faculty_name_oattern = re.compile(r"^\[\d+\](.*)$")
-            faculties = soup.find("select", attrs={"id": "xx0301id"})
-            faculties_dict = {}
-            for option in faculties.find_all("option"):
-                key = option["value"]
-                if key != "":
-                    value = option.text
-                    faculty_name = faculty_name_oattern.match(value).group(1)
-                    faculties_dict[key] = faculty_name
-            self.faculties = faculties_dict
+                if len(self.courses) >= self.max_size:
+                    self.__many_to_mongodb()
         except:
-            print("wrong on init basic_html_doc")
+            print(traceback.format_exc())
 
-    def getSemesters(self):
-        pass
+    def __many_to_mongodb(self):
+        try:
+            self.collection.insert_many(self.courses)
+        except:
+            print(traceback.format_exc())
 
-a = Coursitter(11510629,303512)
-print(a.semesters)
-print(a.faculties)
+    def courses_to_mongodb(self):
+        try:
+            self.collection.insert_many(self.courses)
+        except:
+            print(traceback.format_exc())
 
+    def close_db(self):
+        try:
+            self.__mongo_client.close()
+            return True
+        except:
+            print(traceback.format_exc())
+            return False
 
-
-
-
-
+if __name__ == '__main__':
+    courses = Courses()
+    # for i in range(600):
+    #     courses.add_course(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", ["aa", "bb"]])
+    #
+    # courses.courses_to_mongodb()
+    # courses.close_db()
 
