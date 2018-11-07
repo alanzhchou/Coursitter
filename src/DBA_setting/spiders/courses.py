@@ -14,7 +14,6 @@ import logpy as lg
 
 class Courses(object):
     def __init__(self):
-        self.max_size = 500
         self.courses = []
 
         self.__mongo_client = mongo.MongoClient("mongodb://localhost:27017/")
@@ -36,9 +35,9 @@ class Courses(object):
             "credit" : "",
             "hours" : "",
             "type" : "",
-            "state" : "",
+            "xing_zhi": "",
             "shu_xing" : "",
-            "xing_zhi" : "",
+            "state": "",
             "discription" : "",
             "requirements" : [],
         }
@@ -50,21 +49,13 @@ class Courses(object):
                     course[item] = list[index]
                     index += 1
                 self.courses.append(course)
-
-                if len(self.courses) >= self.max_size:
-                    self.__many_to_mongodb()
-        except:
-            print(traceback.format_exc())
-
-    def __many_to_mongodb(self):
-        try:
-            self.collection.insert_many(self.courses)
         except:
             print(traceback.format_exc())
 
     def courses_to_mongodb(self):
         try:
             self.collection.insert_many(self.courses)
+            self.courses.clear()
         except:
             print(traceback.format_exc())
 
