@@ -3,7 +3,7 @@
         <div class="input-group">
             <div class="input-group-prepend"> 
                 <button  type="button" class="btn btn-outline-danger dropdown-toggle" data-toggle="dropdown">
-                {{ default_setting_type }}
+                {{ setting_type === 'basic' ? '基础' : '安全' }}
                 </button>
                 <div class="dropdown-menu">
                     <li v-for="item in setting_types" class="dropdown-item"> 
@@ -19,7 +19,7 @@
 export default {
     name:"SettingMid",
     props:{
-        default_setting_type: String,
+        setting_type: String,
     },
     data(){
         return {

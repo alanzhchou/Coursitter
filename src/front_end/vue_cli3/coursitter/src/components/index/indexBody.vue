@@ -5,7 +5,7 @@
                 <img :src="news_img" alt="" id="news_img" class="rounded-circle">
             </div>
             <div class="col-xs-10 offset-xs-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
-                <carousel :carousel_slides="slides" :carousel_inner_items="inner_items"></carousel>
+                <carousel :carousel_items="carousel_items"/>
             </div> 
         </div>
     </div>
@@ -13,32 +13,20 @@
 
 <script>
 import Carousel from './indexBody_items/carousel.vue';
+import { mapGetters } from "vuex";
 
 export default {
     name: 'IndexBody',
-    data(){
-        return {
-            news_img: "/imgs/sustc.jpg",
-            slides:[],
-            inner_items:[]
-        };
+    computed:{
+        news_img(){
+            return this.$store.state.home.news_img
+        },
+        carousel_items(){
+            return this.$store.state.home.carousel_items
+        }
     },
     created(){
-        this.$http.get("http://jsonplaceholder.typicode.com/users")
-            .then((data) => {
-                let users = data.body;
-
-                for(let i=0; i<data.body.length; i++){
-                    this.slides.push(i);
-                    this.inner_items.push({   
-                                    img_src: "/imgs/" + String(i) + ".jpg", 
-                                    title: data.body[i].name, 
-                                    discribe: data.body[i].email
-                                });
-                }
-            }).catch((err) => {
-                
-            });
+        this.$store.dispatch("home/updateCarouselItems");
     },
     components: {
         "carousel":Carousel,

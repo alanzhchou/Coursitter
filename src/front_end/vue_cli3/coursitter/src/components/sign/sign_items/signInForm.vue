@@ -1,28 +1,28 @@
 <template>
-    <form action="#" class="rounded">
+    <form class="rounded">
         <h3> Sign In for Coursitter </h3>
         <div class="input-group">
             <div class="input-group-prepend"> 
                 <span class="input-group-text"> 账号 </span>
             </div>
-            <input type="text" class="form-control" placeholder="用户名或邮箱">
+            <input type="text" class="form-control" placeholder="用户名或邮箱" v-model="signin_username">
         </div>
 
         <div class="input-group">
             <div class="input-group-prepend"> 
                 <span class="input-group-text"> 密码 </span>
             </div>
-            <input type="password" class="form-control" placeholder="密码">
+            <input type="password" class="form-control" placeholder="密码" v-model="signin_password">
         </div>
 
         <div class="form-check">
             <label for="check" class="form-check-label">
-                <input type="checkbox" id="check" class="form-check-input">
+                <input type="checkbox" id="check" class="form-check-input" v-model="signin_remember">
                 记住我
             </label>
         </div>
         
-        <button type="submit" class="btn btn-primary"> 登陆 </button>
+        <button @click.prevent="sign_submit" class="btn btn-primary"> 登陆 </button>
 
         <div class="input-group">
             <a href="#"> forget password ? </a>     
@@ -33,13 +33,39 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name:"SignInForm",
-    data(){
-        return{
-            username: "",
-            password: "",
-            remember: true,
+    computed:{
+        signin_username: {
+            get () {
+                return this.$store.state.sign.signin_username;
+            },
+            set (value) {
+                this.$store.commit('sign/updateSigninUsername', value)
+            }
+        },
+        signin_password: {
+            get () {
+                return this.$store.state.sign.signin_password;
+            },
+            set (value) {
+                this.$store.commit('sign/updateSigninPassword', value)
+            }
+        },
+        signin_remember: {
+            get () {
+                return this.$store.state.sign.signin_remember;
+            },
+            set (value) {
+                this.$store.commit('sign/updateSigninRemember', value)
+            }
+        },
+    },
+    methods:{
+        sign_submit(){
+            this.$store.dispatch("sign/signInSubmit")
         }
     }
 }

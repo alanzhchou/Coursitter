@@ -8,12 +8,10 @@
         </div>
 
         <div class="row body">
-            <settingLeft></settingLeft>
-
-            <settingMid :default_setting_type="mid_type"></settingMid>
-            
-            <settingRightBasic v-if="basic_type"></settingRightBasic>
-            <settingRightPassword v-if="password_type"></settingRightPassword>
+            <settingLeft/>
+            <settingMid :setting_type="setting_type" />
+            <settingRightBasic v-if="setting_type === 'basic'" />
+            <settingRightPassword v-if="setting_type === 'password'" />
         </div>
     </div>
 </template>
@@ -27,14 +25,7 @@ import SettingMid from './setting_items/settingMid.vue';
 export default {
     name:"Setting",
     props:{
-        basic_type: Boolean,
-        password_type: Boolean,
-        mid_type: String,
-    },
-    data(){
-        return {
-
-        };
+        setting_type: String,
     },
     components:{
         "settingLeft": SettingLeft,

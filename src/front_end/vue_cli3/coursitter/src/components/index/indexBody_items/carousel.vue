@@ -1,11 +1,11 @@
 <template>
     <div id="carousel_demo" class="carousel slide bg-dark rounded-circle" data-ride="carousel">
         <ul class="carousel-indicators">
-            <li v-for="index in carousel_slides" data-target="#carousel_demo" :data-slide-to="index" :class="{'active':!index}"></li>
+            <li v-for="item in carousel_items" data-target="#carousel_demo" :data-slide-to="item.index" :class="{'active':!item.index}"></li>
         </ul>
 
         <div class="carousel-inner">
-            <div v-for="item,index in carousel_inner_items" class="carousel-item" :class="{'active':!index}">
+            <div v-for="item,index in carousel_items" class="carousel-item" :class="{'active':!index}">
                 <a :href="item.img_src" target="_blank">
                     <img :src="item.img_src" :alt="item.img_src" class="rounded-circle img-thumbnail">
                 </a>
@@ -29,10 +29,7 @@
 export default {
     name: 'Carousel',
     props: {
-        carousel_slides:{
-            type: Array,
-        },
-        carousel_inner_items:{
+        carousel_items:{
             type: Array,
         }
     },

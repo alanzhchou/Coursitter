@@ -2,6 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueResource from 'vue-resource';
 import VueRouter from 'vue-router';
+import { store } from "./store/store";
 
 import IndexBody from './components/index/indexBody.vue';
 import Sign from './components/sign/sign.vue';
@@ -29,8 +30,7 @@ const router = new VueRouter({
 				path:"/signin",
 				component:Sign,
 				props:{
-					sign_in_tab: true,
-					sign_up_tab: false,
+					sign_type: "sign in",
 				}
 			},
 			{
@@ -38,8 +38,7 @@ const router = new VueRouter({
 				path:"/signup",
 				component:Sign,
 				props:{
-					sign_in_tab: false,
-					sign_up_tab: true,
+					sign_type: "sign up",
 				}
 			},
 			{	
@@ -47,9 +46,7 @@ const router = new VueRouter({
 				path:"/account/bsetting",
 				component:Setting,
 				props:{
-					basic_type: true,
-					password_type: false,
-					mid_type: "基础",
+					setting_type: "basic",
 				}
 			},
 			{
@@ -57,9 +54,7 @@ const router = new VueRouter({
 				path:"/account/psetting",
 				component:Setting,
 				props:{
-					basic_type: false,
-					password_type: true,
-					mid_type: "安全",
+					setting_type: "password",
 				}
 			},
 			{
@@ -261,6 +256,7 @@ Vue.config.productionTip = false
 
 new Vue({
 	router,
+	store: store,
 	render: h => h(App)
 }).$mount('#app')
 
