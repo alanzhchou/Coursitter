@@ -18,7 +18,6 @@ export default {
 	data(){
 		return {
 			router_links:[
-				{link_to: "/" ,	infomation: "Home",},
 				{link_to: "/signin",infomation: "Sign In",},
 				{link_to: "/signup",infomation: "Sign Up",},
 				{link_to: "/account/bsetting",infomation: "account basic_setting",},
@@ -30,8 +29,6 @@ export default {
 				{link_to: "/faculty/0/courses",infomation: "single_faculty_all_courses",},
 				{link_to: "/major/0",infomation: "single_major_all_courses",},
 				{link_to: "/courserequest",infomation: "single course request",},
-				{link_to: "/help",infomation: "help page",},
-				{link_to: "/404",infomation: "404 Not Found",},
 			]
 		};
 	},

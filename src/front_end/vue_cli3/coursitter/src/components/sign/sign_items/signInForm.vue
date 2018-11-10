@@ -33,7 +33,6 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
 
 export default {
     name:"SignInForm",
@@ -43,7 +42,7 @@ export default {
                 return this.$store.state.sign.signin_username;
             },
             set (value) {
-                this.$store.commit('sign/updateSigninUsername', value)
+                this.$store.commit('sign/update_signin_username', value)
             }
         },
         signin_password: {
@@ -51,7 +50,7 @@ export default {
                 return this.$store.state.sign.signin_password;
             },
             set (value) {
-                this.$store.commit('sign/updateSigninPassword', value)
+                this.$store.commit('sign/update_signin_password', value)
             }
         },
         signin_remember: {
@@ -59,13 +58,15 @@ export default {
                 return this.$store.state.sign.signin_remember;
             },
             set (value) {
-                this.$store.commit('sign/updateSigninRemember', value)
+                this.$store.commit('sign/update_signin_remember', value)
             }
         },
     },
     methods:{
         sign_submit(){
-            this.$store.dispatch("sign/signInSubmit")
+            this.$store.dispatch("sign/signin_submit")
+            this.$store.commit("update_signed",true);
+            this.$router.push("/");
         }
     }
 }

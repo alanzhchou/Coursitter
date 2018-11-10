@@ -7,7 +7,7 @@
                 </button>
                 <div class="dropdown-menu">
                     <li v-for="item in setting_types" class="dropdown-item"> 
-                         <router-link :to="item.src" @click="change_setting_type"> {{ item.type }} </router-link>
+                         <router-link :to="item.src"> {{ item.type }} </router-link>
                     </li>
                 </div>
             </div>
@@ -29,11 +29,6 @@ export default {
             ],
         };
     },
-    methods:{
-		change_setting_type(event){
-			this.default_setting_type = event.target.innerText;
-		}
-	},
 }
 </script>
 

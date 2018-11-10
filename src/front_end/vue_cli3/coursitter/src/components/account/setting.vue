@@ -3,7 +3,7 @@
         <!-- title -->
         <div class="row title">
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                - account setting
+                <button class="btn btn-outline-danger mt-1"> Account Setting </button>
             </div>
         </div>
 

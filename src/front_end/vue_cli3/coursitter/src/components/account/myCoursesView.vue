@@ -15,12 +15,17 @@
                             <th> <button class="btn btn-info"> 课程序号 </button> </th> 
                             <th> <button class="btn btn-info"> 课程名称 </button> </th> 
                             <th> <button class="btn btn-info"> 课程代码 </button> </th> 
-                            <th> <button class="btn btn-info" @click="changeCourseScoreSeen"> 课程分数(显示) </button> </th> 
+                            <th> 
+                                <button :class="{'btn':true, 'btn-dark': !course_score_seen, 'btn-info': course_score_seen}" 
+                                    @click="changeCourseScoreSeen">
+                                    {{ course_score_seen ? "课程分数(显示)" : "课程分数(关闭)" }} 
+                                </button> 
+                            </th> 
                             <th> <button class="btn btn-info"> 学习时间 </button> </th> 
                         </tr>  
                     </thead>
                     <tbody>
-                        <tr v-for="item in courses" :class="{'bg-info':item.highlight}"> 
+                        <tr v-for="item in courses" :key="item.index" :class="{'bg-info':item.highlight}"> 
                             <td> {{ item.course_id}} </td> 
                             <td> {{ item.course_name }} </td> 
                             <td> {{ item.course_code }} </td> 
@@ -29,14 +34,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button class="btn btn-danger"> 更多 </button>
             </div>
             <div class="col-xs-2 col-sm-9 col-md-2 col-lg-2">
-                <button :class="{'btn btn-success': true, 'btn-dark':highlight_flag}" @click="changeHighLightMajor"> 高亮我的专业课 </button>
-                <!-- <div class="switch">
-                    <input type="checkbox" id="switch"/>    
-                    <label for="switch"><em></em></label>
-                </div> -->
+                <button class="btn btn-outline-success" @click="changeHighlight"> 高亮我的专业课 </button>
             </div>
         </div>
     </div>
@@ -46,40 +46,25 @@
 
 export default {
     name:"MyCoursesView",
-    props:{
-        courses: Array,
-    },
-    data(){
-        return {
-            course_score_seen: false,
-            highlight_flag: false,
-            info:["课程分数(显示)","课程分数(关闭)"],
-        };
+    computed:{
+        courses(){
+            return this.$store.state.accountCourses.courses;
+        },
+        course_score_seen(){
+            return this.$store.state.accountCourses.course_score_seen;
+        },
     },
     methods:{
         changeCourseScoreSeen(event){
-            this.course_score_seen = !this.course_score_seen;
-            if(event.target.innerText === this.info[0]){
-                event.target.innerText = this.info[1];
-            }else{
-                event.target.innerText = this.info[0];
-            }
+            this.$store.commit("accountCourses/update_course_score_seen");
         },
-        changeHighLightMajor(){
-            this.highlight_flag = !this.highlight_flag;
-            if(this.highlight_flag){
-                for(let i=0; i<this.courses.length; i++){
-                    if(this.courses[i].course_my_major){
-                        this.courses[i].highlight = true;
-                    }
-                }
-            }else{
-                for(let i=0; i<this.courses.length; i++){
-                    this.courses[i].highlight = false;
-                }
-            }
+        changeHighlight(event){
+            this.$store.commit("accountCourses/update_course_highlight");
         },
-    }
+    },
+    created() {
+        this.$store.dispatch("accountCourses/set_courses");
+    },
 }
 </script>
 

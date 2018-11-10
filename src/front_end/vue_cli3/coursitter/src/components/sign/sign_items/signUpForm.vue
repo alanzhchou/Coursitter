@@ -45,31 +45,31 @@ export default {
         signup_username: {
             get () {return this.$store.state.sign.signup_username;},
             set (value) {
-                this.$store.commit('sign/updateSignupUsername', value)
+                this.$store.commit('sign/update_signup_username', value)
             }
         },
         signup_password: {
             get () {return this.$store.state.sign.signup_password;},
             set (value) {
-                this.$store.commit('sign/updateSignupPassword', value)
+                this.$store.commit('sign/update_signup_password', value)
             }
         },
         signup_repeat_password:{
             get () {return this.$store.state.sign.signup_repeat_password;},   
             set (value) {
-                this.$store.commit('sign/updateSignupRepeatPassword', value)
+                this.$store.commit('sign/update_signup_repeat_password', value)
             }
         },
         signup_remember: {
             get () {return this.$store.state.sign.signup_remember;},
             set (value) {
-                this.$store.commit('sign/updateSignupRemember', value)
+                this.$store.commit('sign/update_signup_remember', value)
             }
         },
     },
     methods:{
         sign_submit(){
-            this.$store.dispatch("sign/signUpSubmit")
+            this.$store.dispatch("sign/signup_submit")
         }
     }
 }

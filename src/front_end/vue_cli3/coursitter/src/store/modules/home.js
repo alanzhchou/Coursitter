@@ -8,17 +8,16 @@ export const home = {
     },
 
     mutations:{
-        setCarouselItems: (state,payload) => {
+        update_carousel_items: (state,payload) => {
             state.carousel_items = payload;
         },
     },
 
     actions:{
         // 异步请求幻灯片数据
-        updateCarouselItems(context){
+        set_carousel_items(context){
             Vue.http.get("http://jsonplaceholder.typicode.com/users")
             .then((data) => {
-                let users = data.body;
                 let carousel_items = []
     
                 for(let i=0; i<data.body.length; i++){
@@ -29,7 +28,7 @@ export const home = {
                                     discribe: data.body[i].email
                                 });
                 }
-                context.commit("setCarouselItems",carousel_items);
+                context.commit("update_carousel_items",carousel_items);
             });
         }
     }

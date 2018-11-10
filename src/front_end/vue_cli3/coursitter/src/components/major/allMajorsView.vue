@@ -1,15 +1,14 @@
 <template>
 	<div class="container-fluid bg-light">
-            <!-- title -->
         <div class="row title">
             <div class="col-xs-2 offset-xs-5 col-sm-2 offset-sm-5 col-md-2 offset-md-5 col-lg-2 offset-lg-5">
-                <button class="btn btn-outline-dark"> Majors View </button>
+                <button class="btn btn-outline-info"> {{ faculty_name }} Majors View </button>
             </div>
         </div>
         <div class="row body">
             <div class="col-xs-10 offset-xs-1 col-sm-10 offset-sm-1 col-md-10 offset-md-1 col-lg-10 offset-lg-1">
                 <div class="row main">
-                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" v-for="item in majors">
+                    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" v-for="item in majors" :key="item.index">
                         <router-link :to="'/major/' + item.major_id">
                             <img :src="item.major_img_src" :alt="item.major_name" class="img-thumbnail"/>
                         </router-link>
@@ -29,9 +28,17 @@
 
 <script>
 export default {
-    name: 'majorsView',
-    props:{
-        majors: Array,
+    name: 'AllMajorsView',
+    computed:{
+        faculty_name(){
+            return this.$store.state.major.faculty_name;
+        },
+        majors(){
+            return this.$store.state.major.majors;
+        },
+    },
+    created() {
+        this.$store.dispatch("major/set_all_majors");
     },
 }
 </script>

@@ -34,12 +34,24 @@
 					</div>
 				</form>
         
-				<div class="dropdown" id="sign">
+				<div class="dropdown" id="sign" v-if="!signed">
 					<button type="button" class="btn btn-info" data-toggle="dropdown">
 						Sign In / Sign Up
 					</button>
 					<div class="dropdown-menu">
 						<router-link class="dropdown-item" v-for="item in sign_info" :to="item.link">{{ item.info }}</router-link>
+					</div>
+				</div>
+
+				<div class="dropdown" id="signed" v-if="signed">
+					<a data-toggle="dropdown" class="ml-2">
+						<img src="/imgs/CSI-png2.png" alt="user_name" class="navbar-brand rounded-circle"> 
+					</a>
+					<div class="dropdown-menu" >
+						<router-link class="dropdown-item" to="/account/bsetting"> 基本设置 </router-link>
+						<router-link class="dropdown-item" to="/account/psetting"> 安全设置 </router-link>
+						<router-link class="dropdown-item" to="/help"> help </router-link>
+						<router-link class="dropdown-item" to="/" @click.native="logout"> 退出登陆 </router-link>
 					</div>
 				</div>
       		</div>
@@ -50,6 +62,11 @@
 <script>
 export default {
 	name: 'MyNavbar',
+	computed:{
+		signed(){
+			return this.$store.state.signed;
+		}
+	},
 	data(){
 		return {
 			nav_brand_src: "/imgs/CSI-png2.png",
@@ -89,6 +106,9 @@ export default {
 	methods:{
 		change_search_type(event){
 			this.default_search_type = event.target.innerText;
+		},
+		logout(){
+			return this.$store.commit("update_signed",false);
 		}
 	},
 }
@@ -106,6 +126,17 @@ export default {
 	}
 	#sign{
 		margin-left: 30px;
+	}
+	#signed{
+		.navbar-brand{
+			width:50px;
+			border: 1px solid gray;
+			box-shadow: 2px 2px 1px;
+			transition: all 0.5s
+		}
+		.navbar-brand:hover{
+			transform: scale(1.1);
+		}
 	}
 }
 </style>

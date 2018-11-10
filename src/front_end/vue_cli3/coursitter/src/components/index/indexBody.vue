@@ -13,7 +13,6 @@
 
 <script>
 import Carousel from './indexBody_items/carousel.vue';
-import { mapGetters } from "vuex";
 
 export default {
     name: 'IndexBody',
@@ -26,7 +25,7 @@ export default {
         }
     },
     created(){
-        this.$store.dispatch("home/updateCarouselItems");
+        this.$store.dispatch("home/set_carousel_items");
     },
     components: {
         "carousel":Carousel,

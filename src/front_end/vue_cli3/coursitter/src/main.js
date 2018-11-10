@@ -9,8 +9,12 @@ import Sign from './components/sign/sign.vue';
 import Setting from './components/account/setting.vue';
 import MyCoursesView from './components/account/myCoursesView.vue';
 import FacultiesView from './components/faculty/facultiesView.vue';
-import MajorsView from './components/major/majorsView.vue';
-import CoursesView from './components/coursesView/coursesView.vue';
+import AllMajorsView from './components/major/allMajorsView.vue'
+import SingleFacultyMajorsView from './components/major/singleFacultyMajorsView.vue'
+
+import FacultyCoursesView from './components/coursesView/facultyCoursesView.vue';
+import MajorCoursesView from './components/coursesView/majorCoursesView.vue';
+
 import SingleCourseRequest from './components/singleCourseRequest/singleCourseRequest.vue';
 import NotFound from './components/404/404.vue';
 import Help from './components/help/help.vue';
@@ -61,191 +65,46 @@ const router = new VueRouter({
 				// 我上过的所有课程
 				path:"/account/courses",
 				component:MyCoursesView,
-				props:{
-					courses:[
-						{   
-							course_id: 1,
-							course_name: "Computer Network",
-							course_code: "CS203",
-							course_score: "A",
-							course_study_year: "大二 下",
-							course_my_major: false, 
-							highlight: false,
-						},
-						{
-							course_id: 2,
-							course_name: "Computer Network",
-							course_code: "CS203",
-							course_score: "A",
-							course_study_year: "大二 下",
-							course_my_major: true, 
-							highlight: false,
-						},
-					],
-				}
 			},
 			{
 				// 所有的院系
 				path:"/faculties",
 				component:FacultiesView,
-				props:{
-					faculties:[
-						{   
-							faculty_id: 0,
-							faculty_img_src: "/imgs/201.jpg",
-							faculty_name: "数学",
-							faculty_discribe: "xxxxx",
-						},
-						{   
-							faculty_id: 1,
-							faculty_img_src: "/imgs/202.jpg",
-							faculty_name: "物理",
-							faculty_discribe: "xxxxx",
-						},
-					],
-				}
 			},
 			{	
 				// 所有的专业
 				path:"/majors",
-				component:MajorsView,
-				props:{
-					majors:[
-						{   
-							major_id: 0,
-							major_img_src: "/imgs/201.jpg",
-							major_name: "数学",
-							major_discribe: "xxxxx",
-						},
-						{   
-							major_id: 1,
-							major_img_src: "/imgs/202.jpg",
-							major_name: "物理",
-							major_discribe: "xxxxx",
-						},
-					]
-				}
+				component:AllMajorsView,
 			},
 			{
 				// 看某个院系下的所有专业
 				path:"/faculty/:id",
-				component:MajorsView,
-				props:{
-					majors:[
-						{   
-							major_id: 0,
-							major_img_src: "/imgs/201.jpg",
-							major_name: "数学",
-							major_discribe: "xxxxx",
-						},
-					]
-				}	
-			},
-			{	
-				// 看某个专业下的所有课程
-				path:"/major/:id",
-				component:CoursesView,
-				props:{
-					type: "major",
-					info:{
-						title_name: "CS major",
-						img_src: "/imgs/203.jpg",
-						discribe: "这里是 专业 测试！！！",
-					},
-					courses:[
-						{   
-							course_id: 1,
-							course_code: "CS203",
-							course_name: "Computer Network",
-							course_score: 2,
-							course_opening: "春/秋",
-							course_study_time: "大二 下",
-							course_language: "English",
-							course_faculty: "计算机系/CS",
-							course_requirements: "无",
-							checked: false,
-							checked_info: "",
-							course_my_major: false, 
-							highlight: false,
-						},
-					],
-				}	
+				component:SingleFacultyMajorsView,
 			},
 			{	
 				// 看某个院系下的所有开课
 				path:"/faculty/:id/courses",
-				component:CoursesView,
-				props:{
-					type: "faculty",
-					info:{
-						title_name: "CS faculty!!!",
-						img_src: "/imgs/208.jpg",
-						discribe: "这里是 院系测试 ！！！！",
-					},
-					courses:[
-						{   
-							course_id: 1,
-							course_code: "CS203",
-							course_name: "Computer Network",
-							course_score: 2,
-							course_opening: "春/秋",
-							course_study_time: "大二 下",
-							course_language: "English",
-							course_faculty: "计算机系/CS",
-							course_requirements: "无",
-							checked: false,
-							checked_info: "",
-							course_my_major: false, 
-							highlight: false,
-						},
-						{   
-							course_id: 2,
-							course_code: "CS203",
-							course_name: "Computer Network",
-							course_score: 2,
-							course_opening: "春/秋",
-							course_study_time: "大二 下",
-							course_language: "English",
-							course_faculty: "计算机系/CS",
-							course_requirements: "无",
-							checked: false,
-							checked_info: "",
-							course_my_major: false, 
-							highlight: false,
-						},
-					],
-				}	
+				component:FacultyCoursesView,
+			},
+			{	
+				// 看某个专业下的所有课程
+				path:"/major/:id",
+				component:MajorCoursesView,
 			},
 			{
 				path:"/courserequest",
 				component:SingleCourseRequest,
-				props:{
-					courses:[
-						{   
-							course_id: 1,
-							course_code: "CS203",
-							course_name: "Computer Network",
-							course_score: 2,
-							course_opening: "春/秋",
-							course_study_time: "大二 下",
-							course_language: "English",
-							course_faculty: "计算机系/CS",
-							course_requirements: "无",
-							checked: false,
-							checked_info: "",
-							course_my_major: false, 
-							highlight: false,
-						},
-					],
-				}	
 			},
 			{
 				path:"/help",
 				component:Help,
 			},
 			{
-				path:"/*",
+				path:"/404",
 				component:NotFound,
+			},
+			{
+				path:"/*",redirect:"/404",
 			},
 		],
 	mode: "history",
