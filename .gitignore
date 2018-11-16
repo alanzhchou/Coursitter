@@ -25,3 +25,4 @@ __pycache__
 conf
 secret_test
 log
+try_get_data
