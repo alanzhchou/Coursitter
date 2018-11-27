@@ -3,34 +3,50 @@ import Vue from 'vue'
 export const courses = {
     namespaced: true,
     state:{
-        info:{
-            title_name: "CS faculty",
-            img_src: "/imgs/203.jpg",
-            discribe: "这里是 院系 测试！！！",
-        },
-
+        info:{},
+    
         courses_types_selected_id: 0,
-        courses_types:[],
+        courses_types: [
+                {
+                    id:0,
+                    type:"all",
+                    type_pattern: /^.*$/,
+                },
+                {   
+                    id:1,
+                    type:"1xx",
+                    type_pattern: /^\w{2,5}1\d\d$/,
+                },               
+                {   
+                    id:2,
+                    type:"2xx",
+                    type_pattern: /^\w{2,5}2\d\d$/,
+                },
+                {   
+                    id:3,
+                    type:"3xx",
+                    type_pattern: /^\w{2,5}3\d\d$/,
+                },
+                {   
+                    id:4,
+                    type:"4xx",
+                    type_pattern: /^\w{2,5}4\d\d$/,
+                }
+            ],
         
-        study_year: 2018,
-
         // 该一学年 该院系下的所有开课
         courses:[],
-
         // 根据选择的课程类型 展示的开课
         show_courses:[],
     },
 
     mutations:{
-        // courses view 中部
-        update_courses_types(state,payload){
-            state.courses_types = payload;
+        updata_info(state,payload){
+            state.info = payload;   
         },
+        // courses view 中部
         update_courses_types_selected(state,payload){
             state.courses_types_selected_id = payload;
-        },
-        update_study_year(state,payload){
-            state.study_year = payload;
         },
         
         // courses view 右部
@@ -58,116 +74,21 @@ export const courses = {
     },
 
     actions:{
-        set_faculty_courses_types(context){
-            let courses_type = [
-                    {
-                        id:0,
-                        type:"all",
-                        type_pattern: /^.*$/,
-                    },
-                    {   
-                        id:1,
-                        type:"1xx",
-                        type_pattern: /^\w{2,5}1\d\d$/,
-                    },               
-                    {   
-                        id:2,
-                        type:"2xx",
-                        type_pattern: /^\w{2,5}2\d\d$/,
-                    },
-                    {   
-                        id:3,
-                        type:"3xx",
-                        type_pattern: /^\w{2,5}3\d\d$/,
-                    },
-                    {   
-                        id:4,
-                        type:"4xx",
-                        type_pattern: /^\w{2,5}4\d\d$/,
-                    }
-                ];
-            context.commit("update_courses_types",courses_type)
-        },
-        set_study_year_courses(context){
-            let year_pattern = /^20[0-9][0-9]$/;
-            if(year_pattern.test(String(context.state.study_year))){
-                let courses = [];
-                if(context.state.study_year == 2018){
-                    courses = [     
-                        {   
-                            course_id: 0,
-                            course_code: "CS103",
-                            course_name: "Computer Network",
-                            course_score: 2,
-                            course_year: 2018,
-                            course_opening: "春/秋",
-                            course_study_time: "大二 下",
-                            course_language: "English",
-                            course_faculty: "计算机系/CS",
-                            course_requirements: "无",
-                            checked: false,
-                            checked_info: "",
-                            course_my_major: false, 
-                            highlight: false,
-                        },      
-                        {   
-                            course_id: 1,
-                            course_code: "CS203",
-                            course_name: "Computer Network",
-                            course_score: 2,
-                            course_year: 2018,                            
-                            course_opening: "春/秋",
-                            course_study_time: "大二 下",
-                            course_language: "English",
-                            course_faculty: "计算机系/CS",
-                            course_requirements: "无",
-                            checked: false,
-                            checked_info: "",
-                            course_my_major: false, 
-                            highlight: false,
-                        },
-                    ];
-                }else{
-                    courses = [    
-                        {   
-                            course_id: 0,
-                            course_code: "CS303",
-                            course_name: "Computer Network 017 xxxxxx",
-                            course_score: 2,
-                            course_year: 2017,
-                            course_opening: "春/秋",
-                            course_study_time: "大二 下",
-                            course_language: "English",
-                            course_faculty: "计算机系/CS",
-                            course_requirements: "无",
-                            checked: false,
-                            checked_info: "",
-                            course_my_major: false, 
-                            highlight: false,
-                        },        
-                        {   
-                            course_id: 1,
-                            course_code: "CS403",
-                            course_name: "2017 xxxxxx",
-                            course_score: 2,
-                            course_year: 2017,
-                            course_opening: "春/秋",
-                            course_study_time: "大二 下",
-                            course_language: "English",
-                            course_faculty: "计算机系/CS",
-                            course_requirements: "无",
-                            checked: false,
-                            checked_info: "",
-                            course_my_major: false, 
-                            highlight: false,
-                        },
-                    ];
+        set_courses(context,payload){
+            let courses = [];
+            let info = {};
+            Vue.http.get("http://localhost:5001/api/course/faculty_" + String(payload)).then(
+                (data)=>{
+                    info.title_name = data.body.faculty + " faculty";
+                    info.img_src = "/imgs/207.jpg",
+                    info.discribe = "这里是" + data.body.faculty + "系！！！",
+                    context.commit("updata_info",info);
+
+                    courses = data.body.courses;
+                    context.commit("update_courses",courses);
+                    context.commit("update_show_courses");
                 }
-                context.commit("update_courses",courses);
-                context.commit("update_show_courses");
-            }else{
-                alert("非合法学年格式");
-            }
+            )
         },
         set_show_courses(context){
             context.commit("update_show_courses");

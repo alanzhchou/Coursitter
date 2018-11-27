@@ -45,11 +45,12 @@
 
 				<div class="dropdown" id="signed" v-if="signed">
 					<a data-toggle="dropdown" class="ml-2">
-						<img src="/imgs/CSI-png2.png" alt="user_name" class="navbar-brand rounded-circle"> 
+						<img :src="avatar" alt="avatar" class="navbar-brand rounded-circle"> 
 					</a>
 					<div class="dropdown-menu" >
 						<router-link class="dropdown-item" to="/account/bsetting"> 基本设置 </router-link>
 						<router-link class="dropdown-item" to="/account/psetting"> 安全设置 </router-link>
+						<router-link class="dropdown-item" to="/account/courses"> 账号课程 </router-link>
 						<router-link class="dropdown-item" to="/help"> help </router-link>
 						<router-link class="dropdown-item" to="/" @click.native="logout"> 退出登陆 </router-link>
 					</div>
@@ -63,8 +64,11 @@
 export default {
 	name: 'MyNavbar',
 	computed:{
+		avatar(){
+			return this.$store.state.sign.sign_info.left.avatar_src;
+		},
 		signed(){
-			return this.$store.state.signed;
+			return this.$store.state.sign.sign_info.left.avatar_src != "";
 		}
 	},
 	data(){
@@ -108,7 +112,7 @@ export default {
 			this.default_search_type = event.target.innerText;
 		},
 		logout(){
-			return this.$store.commit("update_signed",false);
+			this.$store.dispatch("sign/logout",this.$router);
 		}
 	},
 }

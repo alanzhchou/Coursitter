@@ -1,0 +1,17 @@
+{
+    "faculty": "ALL",
+    "majors" : [            
+        {   
+            "major_id": 0,
+            "major_img_src": "/imgs/201.jpg",
+            "major_name": "数学",
+            "major_discribe": "xxxxx"
+        },
+        {   
+            "major_id": 1,
+            "major_img_src": "/imgs/202.jpg",
+            "major_name": "物理",
+            "major_discribe": "xxxxx"
+        }
+    ]
+}

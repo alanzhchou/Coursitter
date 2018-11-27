@@ -21,11 +21,6 @@
                                 :class="{'mx-auto rounded-circle btn-info':true, 'btn-danger': item.id === courses_type_selected_id}"
                                 @click="changeType(item.id)">  {{ item.type }}
                         </button> </br>
-                        <form @submit.prevent="change_study_year_courses">
-                            <label> 
-                                <input type="text" name="year" placeholder="学年" v-model="study_year"/>年
-                            </label> 
-                        </form>
                     </div>
                     <!--
                     <button :class="{'btn':true, 'btn-dark': true}" title="高亮我学过的课程">
@@ -56,14 +51,6 @@ export default {
         courses_type_selected_id(){
             return this.$store.state.courses.courses_types_selected_id;
         },
-        study_year:{
-            get(){
-                return this.$store.state.courses.study_year;
-            },
-            set(value){
-                this.$store.commit("courses/update_study_year",value);
-            }
-        },
         courses(){
             return this.$store.state.courses.show_courses;
         }
@@ -73,13 +60,9 @@ export default {
             this.$store.commit("courses/update_courses_types_selected",value);
             this.$store.commit("courses/update_show_courses");
         },
-        change_study_year_courses(){
-            this.$store.dispatch("courses/set_study_year_courses");
-        }
     },
     created() {
-        this.$store.dispatch("courses/set_faculty_courses_types");
-        this.$store.dispatch("courses/set_study_year_courses");
+        this.$store.dispatch("courses/set_courses",this.$route.params.id);
         this.$store.dispatch("courses/set_show_courses");
     },
     components:{

@@ -1,0 +1,65 @@
+{
+    "news_img": "/imgs/sustc.jpg",
+    "carousel_items":[
+        {
+            "index": 0,
+            "img_src": "/imgs/0.jpg",
+            "title": "Leanne Graham",
+            "discribe": "Sincere@april.biz"
+        },
+        {
+            "index": 1,
+            "img_src": "/imgs/1.jpg",
+            "title": "Ervin Howell",
+            "discribe": "Shanna@melissa.tv"
+        },
+        {
+            "index": 2,
+            "img_src": "/imgs/2.jpg",
+            "title": "Clementine Bauch",
+            "discribe": "Nathan@yesenia.net"
+        },
+        {
+            "index": 3,
+            "img_src": "/imgs/3.jpg",
+            "title": "Patricia Lebsack",
+            "discribe": "Julianne.OConner@kory.org"
+        },
+        {
+            "index": 4,
+            "img_src": "/imgs/4.jpg",
+            "title": "Chelsey Dietrich",
+            "discribe": "Lucio_Hettinger@annie.ca"
+        },
+        {
+            "index": 5,
+            "img_src": "/imgs/5.jpg",
+            "title": "Mrs. Dennis Schulist",
+            "discribe": "Karley_Dach@jasper.info"
+        },
+        {
+            "index": 6,
+            "img_src": "/imgs/6.jpg",
+            "title": "Kurtis Weissnat",
+            "discribe": "Telly.Hoeger@billy.biz"
+        },
+        {
+            "index": 7,
+            "img_src": "/imgs/7.jpg",
+            "title": "Nicholas Runolfsdottir V",
+            "discribe": "Sherwood@rosamond.me"
+        },
+        {
+            "index": 8,
+            "img_src": "/imgs/8.jpg",
+            "title": "Glenna Reichert",
+            "discribe": "Chaim_McDermott@dana.io"
+        },
+        {
+            "index": 9,
+            "img_src": "/imgs/9.jpg",
+            "title": "Clementina DuBuque",
+            "discribe": "Rey.Padberg@karina.biz"
+        }
+    ]
+}

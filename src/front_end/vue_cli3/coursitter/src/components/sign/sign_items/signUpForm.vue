@@ -3,30 +3,23 @@
         <h3> Sign Up for Coursitter </h3>
         <div class="input-group">
             <div class="input-group-prepend"> 
-                <span class="input-group-text"> 邮箱 </span>
+                <span class="input-group-text"> 用户名 </span>
             </div>
-            <input type="text" class="form-control" placeholder="用户名或邮箱" v-model="signup_username">
+            <input type="text" class="form-control" placeholder="用户名" v-model="sign_up.username">
         </div>
 
         <div class="input-group">
             <div class="input-group-prepend"> 
                 <span class="input-group-text"> 密码 </span>
             </div>
-            <input type="password" class="form-control" placeholder="密码" v-model="signup_password">
+            <input type="password" class="form-control" placeholder="密码" v-model="sign_up.password">
         </div>
 
         <div class="input-group">
             <div class="input-group-prepend"> 
                 <span class="input-group-text"> 重复 </span>
             </div>
-            <input type="password" class="form-control" placeholder="密码" v-model="signup_repeat_password">
-        </div>
-
-        <div class="form-check">
-            <label for="check" class="form-check-label">
-                <input type="checkbox" id="check" class="form-check-input" v-model="signup_remember">
-                    自动登陆
-            </label>
+            <input type="password" class="form-control" placeholder="密码" v-model="sign_up.repeat_password">
         </div>
         
         <button @click.prevent="sign_submit" class="btn btn-danger"> 注册 </button>
@@ -42,34 +35,13 @@
 export default {
     name:"SignUpForm",
     computed:{
-        signup_username: {
-            get () {return this.$store.state.sign.signup_username;},
-            set (value) {
-                this.$store.commit('sign/update_signup_username', value)
-            }
-        },
-        signup_password: {
-            get () {return this.$store.state.sign.signup_password;},
-            set (value) {
-                this.$store.commit('sign/update_signup_password', value)
-            }
-        },
-        signup_repeat_password:{
-            get () {return this.$store.state.sign.signup_repeat_password;},   
-            set (value) {
-                this.$store.commit('sign/update_signup_repeat_password', value)
-            }
-        },
-        signup_remember: {
-            get () {return this.$store.state.sign.signup_remember;},
-            set (value) {
-                this.$store.commit('sign/update_signup_remember', value)
-            }
-        },
+        sign_up(){
+            return this.$store.state.sign.sign_up;
+        }
     },
     methods:{
         sign_submit(){
-            this.$store.dispatch("sign/signup_submit")
+            this.$store.dispatch("sign/signup_submit",this.$router)
         }
     }
 }

@@ -1,0 +1,38 @@
+{
+    "courses" : [     
+        {   
+            "course_id": 0,
+            "course_code": "CS303",
+            "course_name": "Computer Network 017 xxxxxx",
+            "course_score": 2,
+            "course_year": 2017,
+            "course_opening": "春/秋",
+            "course_study_time": "大二 下",
+            "course_language": "English",
+            "course_faculty": "计算机系/CS",
+            "course_requirements": "无",
+            "course_type":"", 
+            "checked": false,
+            "checked_info": "",
+            "course_my_major": false, 
+            "highlight": false
+        },      
+        {   
+            "course_id": 1,
+            "course_code": "CS403",
+            "course_name": "2017 xxxxxx",
+            "course_score": 2,
+            "course_year": 2017,                            
+            "course_opening": "春/秋",
+            "course_study_time": "大二 下",
+            "course_language": "English",
+            "course_faculty": "计算机系/CS",
+            "course_requirements": "无",
+            "course_type":"", 
+            "checked": false,
+            "checked_info": "",
+            "course_my_major": false, 
+            "highlight": false
+        }
+    ]
+}

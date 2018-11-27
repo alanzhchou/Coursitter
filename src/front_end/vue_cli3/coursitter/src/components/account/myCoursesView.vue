@@ -48,22 +48,22 @@ export default {
     name:"MyCoursesView",
     computed:{
         courses(){
-            return this.$store.state.accountCourses.courses;
+            return this.$store.state.sign.courses;
         },
         course_score_seen(){
-            return this.$store.state.accountCourses.course_score_seen;
+            return this.$store.state.sign.course_score_seen;
         },
     },
     methods:{
         changeCourseScoreSeen(event){
-            this.$store.commit("accountCourses/update_course_score_seen");
+            this.$store.commit("sign/update_course_score_seen");
         },
         changeHighlight(event){
-            this.$store.commit("accountCourses/update_course_highlight");
+            this.$store.commit("sign/update_course_highlight");
         },
     },
     created() {
-        this.$store.dispatch("accountCourses/set_courses");
+        this.$store.dispatch("sign/set_courses");
     },
 }
 </script>

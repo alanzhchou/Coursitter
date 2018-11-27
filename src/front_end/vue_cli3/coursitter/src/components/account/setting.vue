@@ -8,10 +8,11 @@
         </div>
 
         <div class="row body">
-            <settingLeft/>
+            <settingLeft :left="left" />
             <settingMid :setting_type="setting_type" />
-            <settingRightBasic v-if="setting_type === 'basic'" />
-            <settingRightPassword v-if="setting_type === 'password'" />
+            <settingRightBasic v-if="setting_type === 'basic'" :basic="basic" />
+            <settingRightPassword v-if="setting_type === 'password'" :password="password" />
+  <!---->
         </div>
     </div>
 </template>
@@ -26,6 +27,17 @@ export default {
     name:"Setting",
     props:{
         setting_type: String,
+    },
+    computed:{
+        left(){
+            return this.$store.state.sign.sign_info.left
+        },
+        basic(){
+            return this.$store.state.sign.sign_info.basic
+        },
+        password(){
+            return this.$store.state.sign.sign_info.password
+        }
     },
     components:{
         "settingLeft": SettingLeft,

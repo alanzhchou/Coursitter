@@ -63,9 +63,9 @@ export default {
     .main{
         >div{
             margin-bottom: 10px;
-            box-shadow: 2px 2px 5px;
             padding: 10px;
             .input-group{
+                box-shadow: 2px 2px 5px;
                 margin-top: 20px;
                 width: 80%;
             }
@@ -81,6 +81,7 @@ export default {
             box-shadow: 3px 3px 10px;
         }
         textarea{
+            box-shadow: 2px 2px 5px;
             width: 80%;
             min-height: 100px;
             max-height: 100px;

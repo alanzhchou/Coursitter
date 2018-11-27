@@ -4,73 +4,128 @@ export const sign = {
     namespaced: true,
     state:{
         sign_img_src: "/imgs/sustc.jpg",
-        signin_username:"",
-        signin_password:"",
-        signin_remember:"",
 
-        signup_username:"",
-        signup_password:"",
-        signup_repeat_password:"",
-        signup_remember:"",
+        sign_in : {
+            username:"alan7",
+            password:"abcde",
+        },
+
+        sign_up : {
+            username:"",
+            password:"",
+            repeat_password:"",
+        },
+
+        sign_info : {
+            left : {
+                avatar_src: "",
+                major: "",
+            },
+
+            basic : {
+                username: "",
+                nickname: "",
+                email: "",
+                sex: "",
+                introuction: "",
+            },
+
+            password : {
+                origin_password: "",
+                new_password: "",
+                repeat_password: "",
+                cas_account: "",
+                cas_password: "",
+            }
+        },
+
+        courses:[],
+        course_score_seen: false,
     },
 
     mutations:{
-        update_sign_img_src(state, payload){
-            state.sign_img_src = payload;
+        update_course_score_seen(state){
+            state.course_score_seen = !state.course_score_seen;
         },
-        update_signin_username (state, payload) {
-            state.signin_username = payload;
+        update_course_highlight(state){
+            let courses = state.courses;
+            for(let i=0; i<courses.length; i++){
+                if(courses[i].highlight === courses[i].is_my_major){
+                    courses[i].highlight = false;
+                }else{
+                    courses[i].highlight = courses[i].is_my_major;
+                }
+            }
         },
-        update_signin_password (state, payload) {
-            state.signin_password = payload;
-        },
-        update_signin_remember(state, payload) {
-            state.signin_remember = payload;
-        },
-        update_signup_username (state, payload) {
-            state.signup_username = payload;
-        },
-        update_signup_password (state, payload) {
-            state.signup_password = payload;
-        },
-        update_signup_repeat_password (state, payload) {
-            state.signup_repeat_password = payload;
-        },
-        update_signup_remember(state, payload) {
-            state.signup_remember = payload;
-        },
+        update_courses(state,payload){
+            state.courses = payload;
+        }
     },
 
     actions:{
-        signin_submit: (context) =>{
-            Vue.http.get("https://jsonplaceholder.typicode.com/todos/1")
-            .then((data) => {
-                alert(context.state.signin_username + "\n" + context.state.signin_password + "\n" + context.state.signin_remember);
-                let user = data.body;
-                alert(JSON.stringify(user));
-            });
+        checkLocal: (context)=>{
+            if(window.localStorage.getItem("token")){
+
+            }
         },
 
-        signup_submit: (context) =>{
-            Vue.http.get("https://jsonplaceholder.typicode.com/todos/1")
-            .then((data) => {
-                alert(context.state.signup_username + "\n" + context.state.signup_password + "\n" +
-                        context.state.signup_repeat_password  + "\n" + context.state.signup_remember);
-                let user = data.body;
-                alert(JSON.stringify(user));
-            });
+        signin_submit: (context,router) =>{
+            if(context.state.signin_username != "" && context.state.signin_password != ""){
+                Vue.http.post("http://localhost:5001/api/account/signin",
+                {
+                    name : context.state.sign_in.username,
+                    password : context.state.sign_in.password,
+                },{emulateJSON: true}).then((data) => {
+                    context.state.sign_info.left = {
+                        avatar_src: data.body.avatar_src,    major: data.body.major,},
+                    context.state.sign_info.basic = {
+                        username: data.body.name,   nickname: data.body.nickname,   email: data.body.email,
+                        sex: data.body.sex,  introuction: data.body.introduction,
+                    },
+                    context.state.sign_info.password = {
+                        origin_password: "",    new_password: "",   repeat_password: "",
+                        cas_account: data.body.cas_account,    cas_password: data.body.cas_password,
+                    }
+                    window.localStorage.setItem("token",data.body.name);
+                    router.push("/")
+                });
+            }else{
+                alert("请输入");
+            }
         },
 
-        set_sign_img_src(context){
-            Vue.http.get("https://jsonplaceholder.typicode.com/todos/1")
-            .then((data) => {
-                let user = data.body;
-                if(context.state.sign_img_src === "/imgs/sustc.jpg"){
-                    context.commit("update_sign_img_src","/imgs/201.jpg");
+        signup_submit: (context,router) =>{
+            if(context.state.signup_username != "" && context.state.signup_password != ""){
+                if(context.state.signup_password === context.state.signup_repeat_password){
+                    Vue.http.post("http://localhost:5001/api/account/signup",
+                    {
+                        name : context.state.signup_username,
+                        password : context.state.signup_password,
+                    },{emulateJSON: true}).then((data) => {
+                        context.state.signin_username = data.body.name;
+                        context.state.signin_password = data.body.password;
+                        router.push("/signin")
+                    });
                 }else{
-                    context.commit("update_sign_img_src","/imgs/sustc.jpg");
+                    alert("重复密码错误");
                 }
+            }else{
+                alert("请输入");
+            }
+        },
+
+        logout:(context,router)=>{
+            window.localStorage.removeItem("token");
+            context.state.sign_info.left.avatar_src = "";
+        },
+
+        set_courses(context){
+            Vue.http.post("http://localhost:5001/api/account/course",{
+                user: window.localStorage.getItem("token")
+            },{emulateJSON: true})
+            .then((data) => {
+                context.commit("update_courses",data.body.courses);
             });
-        }
+        },
     }
 };

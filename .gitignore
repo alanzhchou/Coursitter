@@ -26,3 +26,4 @@ conf
 secret_test
 log
 try_get_data
+node_modules

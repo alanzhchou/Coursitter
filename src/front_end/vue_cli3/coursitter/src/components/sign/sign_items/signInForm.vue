@@ -5,21 +5,14 @@
             <div class="input-group-prepend"> 
                 <span class="input-group-text"> 账号 </span>
             </div>
-            <input type="text" class="form-control" placeholder="用户名或邮箱" v-model="signin_username">
+            <input type="text" class="form-control" placeholder="用户名" v-model="sign_in.username">
         </div>
 
         <div class="input-group">
             <div class="input-group-prepend"> 
                 <span class="input-group-text"> 密码 </span>
             </div>
-            <input type="password" class="form-control" placeholder="密码" v-model="signin_password">
-        </div>
-
-        <div class="form-check">
-            <label for="check" class="form-check-label">
-                <input type="checkbox" id="check" class="form-check-input" v-model="signin_remember">
-                记住我
-            </label>
+            <input type="password" class="form-control" placeholder="密码" v-model="sign_in.password">
         </div>
         
         <button @click.prevent="sign_submit" class="btn btn-primary"> 登陆 </button>
@@ -37,36 +30,14 @@
 export default {
     name:"SignInForm",
     computed:{
-        signin_username: {
-            get () {
-                return this.$store.state.sign.signin_username;
-            },
-            set (value) {
-                this.$store.commit('sign/update_signin_username', value)
-            }
-        },
-        signin_password: {
-            get () {
-                return this.$store.state.sign.signin_password;
-            },
-            set (value) {
-                this.$store.commit('sign/update_signin_password', value)
-            }
-        },
-        signin_remember: {
-            get () {
-                return this.$store.state.sign.signin_remember;
-            },
-            set (value) {
-                this.$store.commit('sign/update_signin_remember', value)
-            }
-        },
+        sign_in(){
+            return this.$store.state.sign.sign_in;
+        }
     },
     methods:{
         sign_submit(){
-            this.$store.dispatch("sign/signin_submit")
-            this.$store.commit("update_signed",true);
-            this.$router.push("/");
+            console.log(this.$store.state.sign.sign_in.username);
+            this.$store.dispatch("sign/signin_submit",this.$router)
         }
     }
 }
