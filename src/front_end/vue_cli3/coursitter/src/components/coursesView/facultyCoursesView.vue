@@ -22,11 +22,6 @@
                                 @click="changeType(item.id)">  {{ item.type }}
                         </button> </br>
                     </div>
-                    <!--
-                    <button :class="{'btn':true, 'btn-dark': true}" title="高亮我学过的课程">
-                        高 亮
-                    </button>
-                    -->
                 </div>
             </div>
             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">

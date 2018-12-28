@@ -14,19 +14,9 @@
             </div>
             <input type="password" class="form-control" placeholder="密码" v-model="sign_up.password">
         </div>
-
-        <div class="input-group">
-            <div class="input-group-prepend"> 
-                <span class="input-group-text"> 重复 </span>
-            </div>
-            <input type="password" class="form-control" placeholder="密码" v-model="sign_up.repeat_password">
-        </div>
         
         <button @click.prevent="sign_submit" class="btn btn-danger"> 注册 </button>
 
-        <div class="input-group">
-            <a href="#"> forget password ? </a>
-        </div>
         <router-link type="button" to="/signin" class="btn btn-outline-primary signIn"> 登陆 </router-link>
     </form>
 </template>

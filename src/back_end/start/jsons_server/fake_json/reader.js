@@ -5,8 +5,8 @@ function Reader(){
         try {
             return JSON.parse(fs.readFileSync(filename).toString());
         } catch (error) {
-            return {msg: "error"};   
-        } 
+            return {msg: "error"};
+        }
     }
 }
 

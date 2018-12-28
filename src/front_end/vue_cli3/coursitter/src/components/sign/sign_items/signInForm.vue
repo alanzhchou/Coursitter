@@ -17,10 +17,6 @@
         
         <button @click.prevent="sign_submit" class="btn btn-primary"> 登陆 </button>
 
-        <div class="input-group">
-            <a href="#"> forget password ? </a>     
-        </div>
-
         <router-link type="button" to="/signup" class="btn btn-outline-danger signUp"> 注册 </router-link>
     </form>
 </template>
@@ -36,10 +32,12 @@ export default {
     },
     methods:{
         sign_submit(){
-            console.log(this.$store.state.sign.sign_in.username);
-            this.$store.dispatch("sign/signin_submit",this.$router)
+            this.$store.dispatch("sign/signin_submit",this.$router);
         }
-    }
+    },
+    created() {
+        this.$store.dispatch("sign/pre_sign_in_submit",this.$router);
+    },
 }
 </script>
 

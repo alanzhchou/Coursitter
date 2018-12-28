@@ -19,21 +19,6 @@
 					</li>
 				</ul>
         
-				<!-- 搜索组件 -->
-				<form action="#" class="form-inline" id="search">
-					<div class="input-group">
-						<div class="input-group-prepend"> 
-							<button  type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown">
-							{{ default_search_type }}
-							</button>
-							<div class="dropdown-menu">
-								<li class="dropdown-item" v-for="item in search_types" @click="change_search_type"> {{ item.type }} </li>
-							</div>
-						</div>
-						<input type="text" class="form-control" placeholder="搜索内容">
-					</div>
-				</form>
-        
 				<div class="dropdown" id="sign" v-if="!signed">
 					<button type="button" class="btn btn-info" data-toggle="dropdown">
 						Sign In / Sign Up
@@ -108,9 +93,6 @@ export default {
 		};
 	},
 	methods:{
-		change_search_type(event){
-			this.default_search_type = event.target.innerText;
-		},
 		logout(){
 			this.$store.dispatch("sign/logout",this.$router);
 		}

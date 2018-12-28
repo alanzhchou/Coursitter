@@ -2,7 +2,20 @@ const express = require("express");
 const router = express.Router();
 const gravatar = require('gravatar');
 
-const User = require("../../models/user")
+const User = require("../../models/user");
+
+router.use("/course",(req,res,next)=>{
+    let token = req.body.token;
+    console.log(token);
+    User.findOne({name: token}).then((user)=>{
+        if(user){
+            next();
+        }else{
+            res.location("http://localhost:8080/signin");
+            res.end();
+        }
+    });
+});
 
 // 注册 name password
 // public
@@ -25,7 +38,8 @@ router.post("/signup",(req,res)=>{
                 cas_account: "",
                 cas_password: "",
                 courses: [],
-            })
+            });
+
             newUser.save().then((user)=>{
                 res.json(user);
             }).catch(err=>console.log(err))
@@ -36,20 +50,31 @@ router.post("/signup",(req,res)=>{
 // 登陆 name password
 // public
 router.post("/signin",(req,res)=>{
-    let name = req.body.name;
-    let password = req.body.password;
-
-    User.findOne({name : name}).then((user)=>{
-        if(user){
-            if(password === user.password){
+    let token = req.body.token;
+    if(token){
+        User.findOne({name : token}).then((user)=>{
+            if(user){
                 res.json(user);
             }else{
-                res.json({msg : "密码错误"});
+                res.json({msg : "用户不存在"});
             }
-        }else{
-            res.json({msg : "用户不存在"});
-        }
-    })
+        })
+    }else{
+        let name = req.body.name;
+        let password = req.body.password;
+
+        User.findOne({name : name}).then((user)=>{
+            if(user){
+                if(password === user.password){
+                    res.json(user);
+                }else{
+                    res.json({msg : "密码错误"});
+                }
+            }else{
+                res.json({msg : "用户不存在"});
+            }
+        })
+    }
 })
 
 // 获取账号课程 localStorage 中的token
@@ -76,7 +101,6 @@ router.post("/course",(req,res)=>{
         },
     ];
     res.json({courses: courses});
-    // res.json({msg: "error"});
 })
 
 module.exports = router;

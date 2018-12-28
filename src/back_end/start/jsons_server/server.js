@@ -16,10 +16,11 @@ mongoose.connect(db,{ useNewUrlParser: true }).then(()=>{
     console.log("Mongo connect successfully");
 }).catch((err)=>{
     console.error(err);
-})
+});
 
 app.all('*', function (req, res, next) {
-    res.header('Access-Control-Allow-Origin', '*'); 
+    // res.header('Access-Control-Allow-Origin', '*'); 
+    res.header('Access-Control-Allow-Origin', "http://localhost:8080"); 
     res.header('Access-Control-Allow-Headers', 'Content-Type'); 
     res.header('Access-Control-Allow-Methods', '*'); 
     // res.header('Access-Control-Allow-Credentials',  true); 

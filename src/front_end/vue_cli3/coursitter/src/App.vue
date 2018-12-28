@@ -17,7 +17,10 @@ export default {
     name: 'app',
     components: {
         "myNavbar":MyNavbar,
-    }
+    },
+	created() {
+        this.$store.dispatch("sign/pre_sign_in_submit",this.$router);
+    },
 }
 </script>
 

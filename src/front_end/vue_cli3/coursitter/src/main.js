@@ -110,12 +110,22 @@ const router = new VueRouter({
 	mode: "history",
 });
 
+Vue.config.productionTip = false;
 
-Vue.config.productionTip = false
-
-new Vue({
+const temp = new Vue({
 	router,
 	store: store,
 	render: h => h(App)
 }).$mount('#app')
+
+
+router.beforeEach((to, from, next) => {
+	if(localStorage.getItem("token")){
+        temp.$store.dispatch("sign/pre_sign_in_submit",temp.$router);
+	}
+	next();
+})
+
+
+
 

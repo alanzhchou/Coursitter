@@ -15,9 +15,6 @@
                             <th> <button class="btn btn-info"> 课程名称 </button> </th> 
                             <th> <button class="btn btn-info"> 学分 </button> </th> 
                             <th> <button class="btn btn-info"> 曾开课 </button> </th> 
-                            <th> <button class="btn btn-info"> 开课学期 </button> </th> 
-                            <th> <button class="btn btn-info"> 建议时间 </button> </th> 
-                            <th> <button class="btn btn-info"> 授课语言 </button> </th> 
                             <th> <button class="btn btn-info"> 院系 </button> </th> 
                             <th> <button class="btn btn-info"> 先修课程 </button> </th> 
                             <th> <button class="btn btn-info"> 选修测试 </button> </th> 
@@ -28,18 +25,15 @@
                     <tbody>
                         <tr v-for="item in courses" :key="item.index" :class="{'bg-info':item.highlight}"> 
                             <td v-show="false"> {{ item.course_id}} </td> 
-                            <td> {{ item.course_code }} </td> 
-                            <td> {{ item.course_name }} </td> 
-                            <td> {{ item.course_score }} </td> 
-                            <td> {{ item.course_year }} </td> 
-                            <td> {{ item.course_opening }} </td> 
-                            <td> {{ item.course_study_time }} </td> 
-                            <td> {{ item.course_language }} </td> 
-                            <td> {{ item.course_faculty }} </td> 
-                            <td> {{ item.course_requirements }} </td> 
+                            <td> {{ item.code }} </td> 
+                            <td> {{ item.name }} </td> 
+                            <td> {{ item.credit }} </td> 
+                            <td> {{ item.semester }} </td> 
+                            <td> {{ item.faculty }} </td> 
+                            <td> {{ item.requirements }} </td> 
                             <td> 
-                                <div class="switch">
-                                    <input type="checkbox" :id="item.course_id" :checked="item.checked" @change="request(item.course_id)"/>    
+                                <div class="">
+                                    <input type="checkbox" :id="item.course_id" :checked="item.checked" @change="request(item._id)"/>    
                                     <label :for="item.course_id"><em></em></label>
                                 </div>
                             </td> 
@@ -49,51 +43,34 @@
                         <tr class="table-info request">
                             <td v-show="false"> -1 </td> 
                             <td>                                     
-                                <input type="text" v-model="added_course_code" placeholder="code" class="form-control mx-auto request_input"/>    
+                                <input type="text" v-model="added_course.code" placeholder="code" class="form-control mx-auto request_input"/>    
                                 <label for="request_course_code"><em></em></label>
                             </td> 
                             <td>                                     
-                                <input type="text" v-model="added_course_name"  placeholder="name" class="form-control mx-auto request_input"/>    
+                                <input type="text" v-model="added_course.name"  placeholder="name" class="form-control mx-auto request_input"/>    
                                 <label for="request_course_name"><em></em></label>
                             </td> 
 
-                            <td></td>
                             <td>
+                                <!--
                                 <input type="text" v-model="added_course_year" placeholder="year" class="form-control mx-auto request_input"/>    
                                 <label for="request_course_name"><em></em></label>
+                                -->
                             </td>
 
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
-
-                            <td>                                     
+                            <td>                            
                                 <button id="request_course_test" class="btn btn-outline-warning mx-auto" @click="request_matched_courses"> 提交查询 </button>    
                             </td> 
                             <td>
-                                <div class="dropdown">
-                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                                        匹配结果
-                                    </button>
-                                    <div class="dropdown-menu"> 
-                                        <a v-for="item in matched_courses" class="dropdown-item" :idx="item.course_id" 
-                                            :class="{'bg-info': item.course_id === selected_course_id,}"
-                                            @click.prevent="select_matched_course(item.course_id)">  
-                                            {{ item.course_code }} - {{ item.course_name }} - {{ item.course_year }}
-                                        </a>
-                                    </div>
-                                </div>
-                            </td>
-                            <td> 
                                 <div class="switch">
-                                    <input type="checkbox" id="request_check" :checked="matched_courses.length != 0" disabled/>    
+                                    <input type="checkbox" id="request_check" :checked="temp_course.name" disabled/>    
                                     <label for="request_check"><em>存在</em></label>
                                 </div>
-                            </td> 
-                            <td> 
-                                <button class="btn btn-success" @click="add_course"> 添加查询课程 </button>
-                            </td> 
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -109,40 +86,16 @@ export default {
         courses(){
             return this.$store.state.singleCourseRequest.courses;
         },
-        added_course_code:{
-            get(){return this.$store.state.singleCourseRequest.added_course_code;},
-            set(value){
-                this.$store.commit("singleCourseRequest/update_added_course_code",value); 
-            }
+        added_course(){
+            return this.$store.state.singleCourseRequest.added_course;
         },
-        added_course_name:{
-            get(){return this.$store.state.singleCourseRequest.added_course_name;},
-            set(value){
-                this.$store.commit("singleCourseRequest/update_added_course_name",value); 
-            }
-        },
-        added_course_year:{
-            get(){return this.$store.state.singleCourseRequest.added_course_year;},
-            set(value){
-                this.$store.commit("singleCourseRequest/update_added_course_year",value); 
-            }
-        },
-        matched_courses(){
-            return this.$store.state.singleCourseRequest.matched_courses;
-        },
-        selected_course_id(){
-            return this.$store.state.singleCourseRequest.selected_course_id;
+        temp_course(){
+            return this.$store.state.singleCourseRequest.temp_course;
         },
     },
     methods:{
         request_matched_courses(){
             this.$store.dispatch("singleCourseRequest/request_matched_courses")
-        },
-        select_matched_course(value){
-            this.$store.commit("singleCourseRequest/update_selected_course_id",value);
-        },
-        add_course(event){
-            this.$store.dispatch("singleCourseRequest/add_course");
         },
         request(value){
             this.$store.dispatch("singleCourseRequest/set_request_info",value);

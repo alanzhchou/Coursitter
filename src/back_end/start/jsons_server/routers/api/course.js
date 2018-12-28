@@ -16,7 +16,7 @@ router.get(/^\/faculty_[\d]+$/,(req,res)=>{
             courses_code.push(faculty.courses[i].code);
         }
 
-        let semester = ["2017-2018-3","2018-2019-1","2018-2019-2"]
+        let semester = ["2017-2018-3","2018-2019-1","2018-2019-2"];
 
         let faculty_name = faculty.name;
         let res_courses = [];
