@@ -2,9 +2,11 @@
 	<div id="app">
 		<myNavbar></myNavbar>
 		<ul class="breadcrumb">
+			<!--
 			<li class="breadcrumb-item" >
 				<router-link to="/courserequest"> single course request </router-link>
 			</li>
+			-->
 		</ul>
 		<router-view></router-view>
 	</div>
